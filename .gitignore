@@ -1,0 +1,11 @@
+bin/
+*.pyc
+*.swp
+.idea
+.env
+.python-version
+__pycache__
+*.egg
+*.egg-info
+build
+dist
