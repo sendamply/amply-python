@@ -72,7 +72,7 @@ html | HTML portion of the message.
 text | Text portion of the message.
 content | An array of objects containing the following keys: `type` (required), `value` (required).
 template | The template to use. This may be a string (the UUID of the template), an array of UUID's (useful for A/B/... testing where one is randomly selected), or an object of the format `{template1Uuid: 0.25, template2Uuid: 0.75}` (useful for weighted A/B/... testing).
-dynamic_template_data | The dynamic data to be replaced in your template.  This is an object of the format `{variable1: 'replacement1', ...}`. Variables should be defined in your template body as `${variable1}`.
+dynamic_template_data | The dynamic data to be replaced in your template.  This is an object of the format `{variable1: 'replacement1', ...}`. Variables should be defined in your template body using handlebars syntax `{{variable1}}`.
 reply_to |Email address of who should receive replies.  This may be a string or an object with `name` and `email` keys.
 headers | An object where the header name is the key and header value is the value.
 ip_or_pool_uuid | The UUID of the IP address or IP pool you want to send from.  Default is your Global pool.
@@ -85,6 +85,7 @@ attachments[][content_id] | The content ID of your attachment.
 clicktracking | Enable or disable clicktracking.
 categories | An array of email categories you can associate with your message.
 substitutions | An object of the format `{subFrom: 'subTo', ...}` of substitutions.
+send_at | Delay sending until a specified time. An ISO8601 formatted string with timezone information.
 
 __Example__
 
@@ -106,6 +107,7 @@ amply.email.create({
     'headers': {'X-Testing': 'Test'},
     'categories': ['Test'],
     'clicktracking': True,
-    'substitutions': {'sub1': 'replacement1'}
+    'substitutions': {'sub1': 'replacement1'},
+    'send_at': datetime.datetime.utcnow().replace(tzinfo=datetime.timezone.utc).isoformat()
 })
 ```

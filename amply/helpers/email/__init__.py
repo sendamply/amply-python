@@ -28,6 +28,7 @@ class EmailHelper(object):
         self.set_categories(data.get('categories'))
         self.set_clicktracking(data.get('clicktracking'))
         self.set_substitutions(data.get('substitutions'))
+        self.set_send_at(data.get('send_at'))
 
         personalizations = data.get('personalizations')
         if personalizations is not None:
@@ -240,6 +241,16 @@ class EmailHelper(object):
 
         for key in substitutions:
             self.request_data['substitutions'][key] = str(substitutions[key])
+
+    def set_send_at(self, send_at):
+        """Set a time to send your email in ISO8601 format
+        Timezone must be present otherwise UTC will be assumed.
+        """
+
+        if send_at is None:
+            return
+
+        self.request_data['send_at'] = send_at
 
     def set_personalizations(self, personalizations):
         """Full control over the recipients of your email
